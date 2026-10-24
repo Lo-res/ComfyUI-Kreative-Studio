@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store
+.vscode/
+.idea/
+*.bak
+*_backup*.json
