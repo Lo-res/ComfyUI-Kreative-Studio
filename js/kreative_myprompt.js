@@ -8,8 +8,7 @@ const WRITER = "AI prompt writer";
 const LOOK_TEXT = "add look + lens text";
 const DEFAULT_ROWS = [{ enabled: true, text: "" }, { enabled: false, text: "" }, { enabled: false, text: "" }];
 const MIN_WIDTH = 480;
-const ONE_PER_ROW = "One image per ON row";
-const COMBINE = "Combine ON rows into one prompt";
+const ONE_PER_ROW = "One image per ON row"; // the only mode: every ON row makes its own picture
 
 // Nodes that only exist to write the prompt (matched by the start of their title).
 const WRITER_NODES = [
@@ -48,8 +47,7 @@ function pendingRows() {
     for (const n of app.graph?._nodes || app.graph?.nodes || []) {
         if (n.type !== "KreativeMyPrompt" || n.mode !== 0) continue;
         const writer = n.widgets?.find((x) => x.name === WRITER)?.value;
-        const mode = n.widgets?.find((x) => x.name === "selection_mode")?.value;
-        if (writer || mode === COMBINE || mode === "Combine All ON Rows") continue;
+        if (writer) continue;
         const { w, rows } = rowsOf(n);
         const on = rows.map((r, i) => (r.enabled && String(r.text || "").trim() ? i : -1)).filter((i) => i >= 0);
         if (on.length > 1) out.push({ w, rows, on });
@@ -95,7 +93,6 @@ app.registerExtension({
             const node = this;
             const wid = (name) => node.widgets?.find((w) => w.name === name);
             const dataWidget = wid("prompt_data");
-            const modeWidget = wid("selection_mode");
             const writerWidget = wid(WRITER);
             if (!dataWidget) return;
 
@@ -106,9 +103,7 @@ app.registerExtension({
             };
             hideRawInput();
 
-            // Old saved workflows used the 1a modes: move them to the new ones.
-            if (modeWidget && !modeWidget.options?.values?.includes?.(modeWidget.value)) modeWidget.value = ONE_PER_ROW;
-            const isRadio = () => modeWidget && modeWidget.value === RADIO_MODE;
+            const isRadio = () => false; // rows switch ON and OFF on their own
             const readRows = () => {
                 hideRawInput();
                 let rows = null;
@@ -145,7 +140,7 @@ app.registerExtension({
                 doc: document,
                 getRows: readRows,
                 setRows: writeRows,
-                getMode: () => (modeWidget ? modeWidget.value : ONE_PER_ROW),
+                getMode: () => ONE_PER_ROW,
                 onChange: () => requestAnimationFrame(() => measure()),
             });
             const measure = () => {
@@ -179,10 +174,6 @@ app.registerExtension({
             const onResize = node.onResize;
             node.onResize = function () { onResize?.apply(this, arguments); requestAnimationFrame(() => fit()); };
 
-            if (modeWidget) {
-                const cb = modeWidget.callback;
-                modeWidget.callback = function () { const r = cb?.apply(this, arguments); ui.render(); return r; };
-            }
             if (writerWidget) {
                 const cb = writerWidget.callback;
                 writerWidget.callback = function (v) {

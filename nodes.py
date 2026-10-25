@@ -317,8 +317,6 @@ class KreativeColourSwap:
 
 WRITER_SWITCH = "AI prompt writer"
 LOOK_TEXT_SWITCH = "add look + lens text"
-ONE_PER_ROW = "One image per ON row"
-COMBINE_ROWS = "Combine ON rows into one prompt"
 MY_PROMPT_ROWS = '[{"enabled":true,"text":""},{"enabled":false,"text":""},{"enabled":false,"text":""}]'
 
 
@@ -346,10 +344,6 @@ class KreativeMyPrompt:
                                    tip="OFF = skip the AI prompt writer and send your own prompt to Moss."),
             LOOK_TEXT_SWITCH: _switch("ON · look, lens + flash added after my prompt", "OFF · send my prompt exactly",
                                       default=True, tip="Only used when the AI prompt writer is OFF."),
-            "selection_mode": ([ONE_PER_ROW, COMBINE_ROWS], {"default": ONE_PER_ROW,
-                               "tooltip": "One image per ON row: Run makes one picture for every row that is ON. "
-                                          "Combine: all ON rows are joined into one prompt (one picture)."}),
-            "delimiter": ("STRING", {"default": " ", "multiline": False}),
             "prompt_data": ("STRING", {"default": MY_PROMPT_ROWS, "multiline": True}),
         }}
 
@@ -364,21 +358,21 @@ class KreativeMyPrompt:
         return float("nan") if not kw.get(WRITER_SWITCH, True) else ""
 
     @staticmethod
-    def _selected(prompt_data, selection_mode, delimiter):
+    def _selected(prompt_data):
         try:
             rows = json.loads(prompt_data) if prompt_data and prompt_data.strip() else []
         except Exception:
             rows = [{"enabled": True, "text": prompt_data}]
         texts = [str(r.get("text", "")).strip() for r in rows
                  if isinstance(r, dict) and r.get("enabled") and str(r.get("text", "")).strip()]
-        if selection_mode != COMBINE_ROWS and selection_mode != "Combine All ON Rows":
-            texts = texts[:1]  # one image per ON row: the browser queues one run per row, each with one row ON
-        return delimiter.join(texts).strip()
+        # One image per ON row: pressing Run queues one run per ON row (js/kreative_myprompt.js),
+        # so each run arrives here with a single row ON. If several do arrive (e.g. via the API), use the first.
+        return texts[0] if texts else ""
 
-    def go(self, selection_mode, delimiter, prompt_data, **kw):
+    def go(self, prompt_data, **kw):
         if kw.get(WRITER_SWITCH, True):
             return ("", None)  # AI writer is on: nothing from here
-        text = self._selected(prompt_data, selection_mode, delimiter)
+        text = self._selected(prompt_data)
         if not text:
             raise ValueError("MY PROMPT: the AI prompt writer is OFF but no prompt row is ON with text in it. "
                              "Type a prompt and switch its row ON, or switch the AI prompt writer back ON.")
