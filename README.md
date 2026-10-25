@@ -12,8 +12,8 @@ This repo has two things:
 |---|---|---|
 | ![](examples/preview/1.jpg) | ![](examples/preview/2.jpg) | ![](examples/preview/3.jpg) |
 | **C · Cheap iPhone** · 35mm · face fix · JPEG crunch | **B · 1970s Kodachrome** · 50mm | **H · Tri-X 400** · 8mm fisheye · camera flash · face fix · Detail |
-| ![](examples/preview/5.jpg) | ![](examples/preview/6.jpg) | |
-| **J · Polaroid** · camera flash | **A · Clean** · 50mm · face fix | |
+| ![](examples/preview/5.jpg) | ![](examples/preview/6.jpg) | ![](examples/preview/7.jpg) |
+| **J · Polaroid** · camera flash | **A · Clean** · 50mm · face fix | **K · LomoChrome Purple** · 50mm · face fix |
 
 ![](examples/preview/4.jpg)
 **D · Aerochrome (prompt)** · XPan 45mm panoramic
@@ -149,13 +149,13 @@ Don't like it? Press **🗑 BIN**.
 | **✏️ Your own style** | Type any film or camera look. Start with one short sentence naming it, then describe the colours, grain and light. Describe colours as they **look in the photo** ("violet leaves, teal sky"), not as changes ("greens turn violet"). The example in the box is Fujifilm Velvia 50. |
 | **B · 1970s Kodachrome** | Warm, faded 70s snapshot. |
 | **C · Cheap iPhone** | Grainy phone photo. JPEG crunch is always on. |
-| **D · Aerochrome** | Infrared film look, made by the prompt alone. |
+| **D · Aerochrome** | Infrared film look: living plants glow crimson and pink, water goes black, and stone, brick, metal and clothes keep their own colours. A colour guide tells the prompt writer what colour everything should be. |
 | **E · Aerochrome IR** | 🧪 **Experimental. Don't use it yet.** |
 | **G · Kodak Portra 400** | Soft, warm colour film. Lovely skin tones. |
 | **H · Kodak Tri-X 400** | Classic black and white, **always**. Colour words in your idea are removed, the prompt writer describes tones only, and the finished picture is turned fully grey. |
 | **I · CineStill 800T** | Night film: cool blues, warm lights, red glow round lamps. |
 | **J · Polaroid** | Soft instant photo. Sharpen, Detail and lens switch off by themselves. |
-| **K · LomoChrome Purple** | Lomography's purple film: leaves, grass and hedges turn violet and lavender, the sky goes teal, yellows go pink, skin stays natural. A colour-swap step at the end makes sure **every** plant turns purple. |
+| **K · LomoChrome Purple** | Lomography's purple film: leaves, grass and hedges turn violet and lavender, the sky goes teal, yellows go pink, skin stays natural. A colour guide tells the prompt writer what colour everything should be, so Moss paints it that way. |
 
 **📸 Camera flash** adds an on-camera flash to any look.
 
