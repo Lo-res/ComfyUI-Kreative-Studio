@@ -36,7 +36,7 @@ This repo has two things:
 
 ## 1. What you need
 - **ComfyUI**, a recent version that supports **MOSS-Image** and **subgraphs**. Update it first.
-- **ComfyUI-Manager**. Most installs already have it.
+- **ComfyUI-Manager** (optional). Newer ComfyUI versions no longer include it. No Manager? Use **Way 2** or **Way 3** below, and the links in **2b**.
 - An **NVIDIA graphics card**. Tested on an RTX 5060 Ti 16 GB with 32 GB RAM.
 - About **20 GB of free disk space** for the models.
 
@@ -44,7 +44,9 @@ This repo has two things:
 
 ## 2. Install the custom nodes
 
-You need **3 packs by Lo** and **7 packs from ComfyUI-Manager**.
+You need **3 packs by Lo** and **7 other packs**.
+
+> **Seeing "Missing Node Packs" with a `pip install ... comfyui-manager` message?** Your ComfyUI has no Manager. You don't need it: install the packs with **Way 2 (git)** or **Way 3 (ZIP)** below. Lo's packs aren't in the Manager's catalogue anyway, so they always install this way.
 
 ### 2a. Lo's packs (install from GitHub)
 
@@ -58,7 +60,7 @@ Install **all three**. The workflow needs them all, even if you never use Look E
 
 Pick **one** way to install:
 
-**Way 1: ComfyUI-Manager (easiest)**
+**Way 1: ComfyUI-Manager (if you have it)**
 1. Click **Manager** → **Install via Git URL**.
 2. Paste the link from the table. Click **OK**.
 3. Do the same for the other two links.
@@ -73,20 +75,31 @@ git clone https://github.com/Lo-res/ComfyUI-Kreative-Moss
 git clone https://github.com/Lo-res/comfyui_aerochrome
 ```
 
-**Way 3: download ZIP**
+**Way 3: download ZIP (no git, no Manager)**
 1. On each repo page, click the green **Code** button → **Download ZIP**.
 2. Unzip it into `ComfyUI/custom_nodes/`.
 3. **Remove `-main` from the end of the folder name.** For example, `ComfyUI-Kreative-Studio-main` → `ComfyUI-Kreative-Studio`.
 
-### 2b. Packs from ComfyUI-Manager
-Click **Manager** → **Custom Nodes Manager**, search for each name and click **Install**:
-- **rgthree-comfy**
-- **ComfyUI-Impact-Pack**
-- **ComfyUI-Impact-Subpack**
-- **ComfyUI-SeedVR2_VideoUpscaler** (by numz)
-- **ComfyUI-Pixaroma**
-- **comfyui-propost**
-- **ComfyUI_essentials** (by cubiq; black and white finish for Tri-X)
+### 2b. The other packs
+**With Manager:** click **Manager** → **Custom Nodes Manager**, search for each name and click **Install**.
+
+**Without Manager:** install each one with git or ZIP, exactly like Lo's packs above:
+
+| Pack | What it's for | Link |
+|---|---|---|
+| **rgthree-comfy** | switches inside the engine | `https://github.com/rgthree/rgthree-comfy` |
+| **ComfyUI-Impact-Pack** | Face fix | `https://github.com/ltdrdata/ComfyUI-Impact-Pack` |
+| **ComfyUI-Impact-Subpack** | Face fix (face finder) | `https://github.com/ltdrdata/ComfyUI-Impact-Subpack` |
+| **ComfyUI-SeedVR2_VideoUpscaler** | Detail | `https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler` |
+| **ComfyUI-Pixaroma** | prompt display | `https://github.com/pixaroma/ComfyUI-Pixaroma` |
+| **comfyui-propost** | film grain | `https://github.com/digitaljohn/comfyui-propost` |
+| **ComfyUI_essentials** | black and white finish for Tri-X | `https://github.com/cubiq/ComfyUI_essentials` |
+
+Some of these need extra Python packages. Without Manager, install them yourself **once** after downloading.
+Open a terminal **in each pack's folder** that has a `requirements.txt` and run ComfyUI's own Python:
+- **Windows portable / Easy-Install:** `..\..\..\python_embeded\python.exe -m pip install -r requirements.txt`
+  (the number of `..\` depends on your folder layout: it must point at the `python_embeded` folder next to `ComfyUI`)
+- **Other installs:** activate ComfyUI's Python environment, then `pip install -r requirements.txt`
 
 ### 2c. Restart
 **Close ComfyUI and start it again. Then refresh your browser** (Ctrl + F5).
