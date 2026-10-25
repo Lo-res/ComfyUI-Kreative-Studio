@@ -44,6 +44,26 @@ This repo has two things:
 
 ## 2. Install the custom nodes
 
+### Quick install: one command 🧪
+> ⚠️ **New and not tested yet.** If it gives you any trouble, use the manual steps below (2a to 2c) and please open an **Issue** so it can be fixed.
+
+It finds your ComfyUI folder (or asks for it), downloads all 10 packs below (skipping any you already have), installs their Python packages with ComfyUI's own Python, and copies the workflow into your workflows folder. It does **not** download the models: see step 3.
+
+**Windows** (open PowerShell in your ComfyUI folder and paste):
+```
+powershell -ExecutionPolicy Bypass -c "irm https://raw.githubusercontent.com/Lo-res/ComfyUI-Kreative-Studio/main/install.ps1 | iex"
+```
+
+**macOS / Linux** (open Terminal in your ComfyUI folder and paste):
+```
+curl -fsSL https://raw.githubusercontent.com/Lo-res/ComfyUI-Kreative-Studio/main/install.sh | bash
+```
+
+Want to see what it does first? Read [`install.ps1`](install.ps1) or [`install.sh`](install.sh). Both are short and commented.
+Then restart ComfyUI and refresh your browser.
+
+### Or install by hand
+
 You need **3 packs by Lo** and **7 other packs**.
 
 > **Seeing "Missing Node Packs" with a `pip install ... comfyui-manager` message?** Your ComfyUI has no Manager. You don't need it: install the packs with **Way 2 (git)** or **Way 3 (ZIP)** below. Lo's packs aren't in the Manager's catalogue anyway, so they always install this way.
