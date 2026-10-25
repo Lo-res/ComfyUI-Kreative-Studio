@@ -3,7 +3,7 @@
 Type a simple idea and get a finished photo in a film or phone look.
 
 This repo has two things:
-- **The Moss Film Looks workflow (v5).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, detail and grain.
+- **The Moss Film Looks workflow (v6).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, detail and grain.
 - **The Kreative Studio nodes.** They give the workflow its Control Panel, seed buttons, ON/OFF switches and **KEEP / BIN** buttons.
 
 ## Examples
@@ -121,7 +121,7 @@ ComfyUI/models/
 ---
 
 ## 4. Open the workflow
-1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v5_A_compact.json`**.
+1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v6_A_compact.json`**.
 2. Drag it onto the ComfyUI window.
 3. **Red nodes?** A pack is missing. Click **Manager** → **Install Missing Custom Nodes**, then restart.
 4. In the **MODEL PANEL**, check that each box shows your model file.
