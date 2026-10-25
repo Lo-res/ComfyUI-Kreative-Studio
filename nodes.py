@@ -247,6 +247,9 @@ def colour_swap(rgb, preset="LomoChrome Purple", strength=1.0):
     Greys, whites and skin are left alone (low saturation and skin hues are outside every band)."""
     h, s, v = _rgb_to_hsv(rgb)
     sat_gate = _ramp(s, 0.06, 0.20)
+    # Clouds, haze and highlights: bright and only faintly coloured. Leave them alone so they stay white.
+    pale_guard = 1.0 - _ramp(v, 0.68, 0.82) * (1.0 - _ramp(s, 0.22, 0.38))
+    sat_gate = sat_gate * pale_guard
     out = rgb.copy()
     for (a, b, c, d), target, sboost in SWAP_PRESETS[preset]:
         w = _ramp(h, a, b) * (1 - _ramp(h, c, d)) * sat_gate * strength
