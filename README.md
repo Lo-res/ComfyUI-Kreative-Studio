@@ -12,8 +12,8 @@ This repo has two things:
 |---|---|---|
 | ![](examples/preview/1.jpg) | ![](examples/preview/2.jpg) | ![](examples/preview/3.jpg) |
 | **C · Cheap iPhone** · 35mm · face fix · JPEG crunch | **B · 1970s Kodachrome** · 50mm | **H · Tri-X 400** · 8mm fisheye · camera flash · face fix · Detail |
-| ![](examples/preview/5.jpg) | | |
-| **J · Polaroid** · camera flash | | |
+| ![](examples/preview/5.jpg) | ![](examples/preview/6.jpg) | |
+| **J · Polaroid** · camera flash | **A · Clean** · 50mm · face fix | |
 
 ![](examples/preview/4.jpg)
 **D · Aerochrome (prompt)** · XPan 45mm panoramic
