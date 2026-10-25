@@ -18,6 +18,9 @@ This repo has two things:
 ![](examples/preview/4.jpg)
 **D · Aerochrome (prompt)** · XPan 45mm panoramic
 
+![](examples/preview/8.jpg)
+**✏️ Your own style (1980s motion-picture film)** · My Prompt · 35mm · 16:9
+
 > ⚠️ **Aerochrome IR (Look E) is experimental. Please don't use it yet.**
 > Work on it is still going on. The **comfyui_aerochrome** node is included so the workflow loads, and so anyone who wants to can look at the code and suggest fixes (open an **Issue** on [its page](https://github.com/Lo-res/comfyui_aerochrome)).
 > For the infrared look, use **Look D · Aerochrome**. Don't switch D and E on together: two colour swaps make a yellow and violet mess.
