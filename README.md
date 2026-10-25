@@ -44,7 +44,7 @@ This repo has two things:
 
 ## 2. Install the custom nodes
 
-You need **3 packs by Lo** and **5 packs from ComfyUI-Manager**.
+You need **3 packs by Lo** and **7 packs from ComfyUI-Manager**.
 
 ### 2a. Lo's packs (install from GitHub)
 
@@ -86,6 +86,7 @@ Click **Manager** → **Custom Nodes Manager**, search for each name and click *
 - **ComfyUI-SeedVR2_VideoUpscaler** (by numz)
 - **ComfyUI-Pixaroma**
 - **comfyui-propost**
+- **ComfyUI_essentials** (by cubiq; black and white finish for Tri-X)
 
 ### 2c. Restart
 **Close ComfyUI and start it again. Then refresh your browser** (Ctrl + F5).
@@ -125,9 +126,7 @@ ComfyUI/models/
 3. **Red nodes?** A pack is missing. Click **Manager** → **Install Missing Custom Nodes**, then restart.
 4. In the **MODEL PANEL**, check that each box shows your model file.
 
-Other workflows in the folder:
-- `moss-image-sft_v5.json`: the same workflow laid out flat, without the engine box. Use it if the compact one gives trouble.
-- `moss-image-sft_v5_B_studio.json`: a full-screen "Moss Studio" layout. 🧪 Work in progress.
+This is the only workflow in the repo, so there's nothing else to pick.
 
 ---
 
@@ -153,7 +152,7 @@ Don't like it? Press **🗑 BIN**.
 | **D · Aerochrome** | Infrared film look, made by the prompt alone. |
 | **E · Aerochrome IR** | 🧪 **Experimental. Don't use it yet.** |
 | **G · Kodak Portra 400** | Soft, warm colour film. Lovely skin tones. |
-| **H · Kodak Tri-X 400** | Classic black and white. |
+| **H · Kodak Tri-X 400** | Classic black and white, **always**. Colour words in your idea are removed, the prompt writer describes tones only, and the finished picture is turned fully grey. |
 | **I · CineStill 800T** | Night film: cool blues, warm lights, red glow round lamps. |
 | **J · Polaroid** | Soft instant photo. Sharpen, Detail and lens switch off by themselves. |
 
