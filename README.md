@@ -146,7 +146,7 @@ Don't like it? Press **🗑 BIN**.
 | Look | What you get |
 |---|---|
 | **A · Clean** | No film look. |
-| **✏️ Your own style** | Type any film or camera look. Start with one short sentence naming it, then describe the colours, grain and light. The example in the box is Fujifilm Velvia 50. |
+| **✏️ Your own style** | Type any film or camera look. Start with one short sentence naming it, then describe the colours, grain and light. Describe colours as they **look in the photo** ("violet leaves, teal sky"), not as changes ("greens turn violet"). The example in the box is Fujifilm Velvia 50. |
 | **B · 1970s Kodachrome** | Warm, faded 70s snapshot. |
 | **C · Cheap iPhone** | Grainy phone photo. JPEG crunch is always on. |
 | **D · Aerochrome** | Infrared film look, made by the prompt alone. |
@@ -157,6 +157,8 @@ Don't like it? Press **🗑 BIN**.
 | **J · Polaroid** | Soft instant photo. Sharpen, Detail and lens switch off by themselves. |
 
 **📸 Camera flash** adds an on-camera flash to any look.
+
+The prompt writer reads the look you pick, so it describes the scene in that film's colours (for example, no "green trees" on a film that turns greens purple).
 
 ### People (switch ONE on)
 **Why this is here:** if your idea doesn't say what the people look like, the Moss model usually draws Asian people.
