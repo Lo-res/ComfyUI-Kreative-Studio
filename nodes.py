@@ -205,13 +205,90 @@ class KreativeKeep(comfy_nodes.SaveImage):
         return result
 
 
+def _ramp(x, a, b):
+    return np.clip((x - a) / (b - a), 0.0, 1.0)
+
+
+def _rgb_to_hsv(rgb):
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    mx, mn = rgb.max(-1), rgb.min(-1)
+    d = mx - mn
+    safe = np.where(d == 0, 1.0, d)
+    h = np.where(mx == r, ((g - b) / safe) % 6, np.where(mx == g, (b - r) / safe + 2, (r - g) / safe + 4)) * 60.0
+    h = np.where(d == 0, 0.0, h)
+    s = np.where(mx == 0, 0.0, d / np.where(mx == 0, 1.0, mx))
+    return h, s, mx
+
+
+def _hsv_to_rgb(h, s, v):
+    c = v * s
+    hp = (h % 360.0) / 60.0
+    x = c * (1 - np.abs(hp % 2 - 1))
+    z = np.zeros_like(c)
+    i = np.floor(hp).astype(np.int32) % 6
+    r = np.choose(i, [c, x, z, z, x, c])
+    g = np.choose(i, [x, c, c, x, z, z])
+    b = np.choose(i, [z, z, x, c, c, x])
+    return np.stack([r, g, b], -1) + (v - c)[..., None]
+
+
+# Each preset: (hue band start-fade, start-full, end-full, end-fade, target hue or "violet", saturation boost)
+SWAP_PRESETS = {
+    "LomoChrome Purple": [
+        ((48, 68, 148, 162), "violet", 1.05),   # yellow-green .. green  -> violet / deep purple
+        ((185, 200, 245, 260), 176.0, 1.0),     # blue                   -> teal
+        ((30, 42, 48, 68), 328.0, 1.0),         # yellow                 -> pink
+    ],
+}
+
+
+def colour_swap(rgb, preset="LomoChrome Purple", strength=1.0):
+    """rgb: float array (..., 3) in 0-1. Shifts whole hue bands like a false-colour film.
+    Greys, whites and skin are left alone (low saturation and skin hues are outside every band)."""
+    h, s, v = _rgb_to_hsv(rgb)
+    sat_gate = _ramp(s, 0.06, 0.20)
+    out = rgb.copy()
+    for (a, b, c, d), target, sboost in SWAP_PRESETS[preset]:
+        w = _ramp(h, a, b) * (1 - _ramp(h, c, d)) * sat_gate * strength
+        t = 278.0 + 12.0 * (1 - v) if target == "violet" else np.full_like(h, target)
+        swapped = _hsv_to_rgb(t, np.clip(s * sboost, 0, 1), v)
+        out = out * (1 - w[..., None]) + swapped * w[..., None]
+    return np.clip(out, 0.0, 1.0)
+
+
+class KreativeColourSwap:
+    """False-colour film look applied to the finished picture, like the film's own chemistry:
+    LomoChrome Purple turns every green violet, blue to teal and yellow to pink. Skin, whites and greys stay put."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {
+            "image": ("IMAGE",),
+            "preset": (list(SWAP_PRESETS), {"default": "LomoChrome Purple"}),
+            "strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.05,
+                                   "tooltip": "1 = full colour swap, 0 = off."}),
+        }}
+
+    RETURN_TYPES = ("IMAGE",)
+    FUNCTION = "swap"
+    CATEGORY = CAT
+
+    def swap(self, image, preset, strength):
+        if strength <= 0:
+            return (image,)
+        arr = image.detach().cpu().numpy().astype(np.float32)
+        out = colour_swap(arr, preset, float(strength))
+        return (torch.from_numpy(out).to(image.device, image.dtype),)
+
+
 OWN_STYLE = "✏️ Your own style (type it below)"
 VELVIA = ("A Fujifilm Velvia 50 slide photograph. Shot on Fujifilm Velvia 50 colour reversal film: "
           "ultra-saturated colours, deep blue skies, vivid greens and reds, rich contrast with deep shadows, "
           "warm golden highlights, very fine grain, crisp sharp detail.")
 PANEL_LOOKS = ["A · Clean (no look)", OWN_STYLE, "B · 1970s Kodachrome", "C · Cheap iPhone",
                "D · Aerochrome (prompt)", "E · Aerochrome IR  🧪 EXPERIMENTAL",
-               "G · Kodak Portra 400 (colour negative)", "H · Kodak Tri-X 400 (black & white)", "I · CineStill 800T (tungsten, night)", "J · Polaroid (soft, no sharpening)"]
+               "G · Kodak Portra 400 (colour negative)", "H · Kodak Tri-X 400 (black & white)", "I · CineStill 800T (tungsten, night)", "J · Polaroid (soft, no sharpening)",
+               "K · LomoChrome Purple (purple foliage)"]
 FLASH = "📸 camera flash (any look)"
 PANEL_PEOPLE = ["A · Caucasian", "B · Asian", "C · As in my idea", "D · No people"]
 
@@ -320,6 +397,7 @@ NODE_CLASS_MAPPINGS = {
     "KreativeDetailMix": KreativeDetailMix,
     "KreativeJPEGCrunch": KreativeJPEGCrunch,
     "KreativeKeep": KreativeKeep,
+    "KreativeColourSwap": KreativeColourSwap,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -330,4 +408,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "KreativeDetailMix": "Kreative Detail Mix (SeedVR2 on / off)",
     "KreativeJPEGCrunch": "Kreative JPEG Crunch",
     "KreativeKeep": "Kreative Result (Keep or Bin)",
+    "KreativeColourSwap": "Kreative Colour Swap (false-colour film)",
 }

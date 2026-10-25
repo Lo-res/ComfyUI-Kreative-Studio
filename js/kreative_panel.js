@@ -49,7 +49,7 @@ const SWITCHES = { "face fix": "face", "detail (SeedVR2)": "detail", "JPEG crunc
 const OWN = "✏️ Your own style (type it below)";
 const LOOK_GROUP = (name) => (name === OWN ? "F" : name.charAt(0));
 const LOOKS = (node) => (node.widgets || []).filter((w) => w.type !== "kreative_heading" &&
-    (w.name === OWN || (/^[A-J] · /.test(w.name) && !PEOPLE_NAMES.has(w.name))));
+    (w.name === OWN || (/^[A-K] · /.test(w.name) && !PEOPLE_NAMES.has(w.name))));
 const FLASH = "📸 camera flash (any look)";
 
 // Flash add-on: the wording lives in "FLASH wording" inside the engine; the panel switch
@@ -161,7 +161,7 @@ function apply(node, w) {
     if (PEOPLE_NAMES.has(name)) {
         radio(node, PEOPLE, w);
         PEOPLE(node).forEach((x) => setOn(T.people(x.name.charAt(0)), !!x.value));
-    } else if (name === OWN || /^[A-J] · /.test(name)) {
+    } else if (name === OWN || /^[A-K] · /.test(name)) {
         radio(node, LOOKS, w);
         LOOKS(node).forEach((x) => setOn(T.look(LOOK_GROUP(x.name)), !!x.value));
         pushStyle(node);

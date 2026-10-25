@@ -155,6 +155,7 @@ Don't like it? Press **🗑 BIN**.
 | **H · Kodak Tri-X 400** | Classic black and white, **always**. Colour words in your idea are removed, the prompt writer describes tones only, and the finished picture is turned fully grey. |
 | **I · CineStill 800T** | Night film: cool blues, warm lights, red glow round lamps. |
 | **J · Polaroid** | Soft instant photo. Sharpen, Detail and lens switch off by themselves. |
+| **K · LomoChrome Purple** | Lomography's purple film: leaves, grass and hedges turn violet and lavender, the sky goes teal, yellows go pink, skin stays natural. A colour-swap step at the end makes sure **every** plant turns purple. |
 
 **📸 Camera flash** adds an on-camera flash to any look.
 
