@@ -151,7 +151,7 @@ Don't like it? Press **🗑 BIN**.
 | **C · Cheap iPhone** | Grainy phone photo. JPEG crunch is always on. |
 | **D · Aerochrome** | Infrared film look: living plants glow crimson and pink, water goes black, and stone, brick, metal and clothes keep their own colours. A colour guide tells the prompt writer what colour everything should be. |
 | **E · Aerochrome IR** | 🧪 **Experimental. Don't use it yet.** |
-| **G · Kodak Portra 400** | Soft, warm colour film. Lovely skin tones. |
+| **G · Kodak Portra 400** | Classic Portra colour: creamy pastel highlights, sage greens, pastel cyan skies, coral reds, golden-peach skin and soft lifted shadows. A colour guide tells the prompt writer how Portra renders each colour. |
 | **H · Kodak Tri-X 400** | Classic black and white, **always**. Colour words in your idea are removed, the prompt writer describes tones only, and the finished picture is turned fully grey. |
 | **I · CineStill 800T** | Night film: cool blues, warm lights, red glow round lamps. |
 | **J · Polaroid** | Soft instant photo. Sharpen, Detail and lens switch off by themselves. |
@@ -169,6 +169,21 @@ These switches give you control over that.
 - **B · Asian**: used when your idea doesn't say.
 - **C · As in my idea**: follows your words exactly. Good for mixed groups, or to describe people yourself.
 - **D · No people**: places and things only.
+
+### My prompt (1n): write the prompt yourself
+Under the Control Panel there is a **MY PROMPT** box. Use it when you want full control, for example for **LoRA trigger words**.
+
+1. Switch **AI prompt writer** to **OFF**. The AI writer is skipped completely, so runs are faster.
+2. Type your prompt in a row and switch the row **ON**. **+ Add prompt / − Remove prompt** add and remove rows.
+3. Press **Run**.
+
+- **Several rows ON = several pictures.** One press of Run makes one picture per ON row, each its own run with **KEEP / BIN**.
+  Set **selection_mode** to **Combine ON rows into one prompt** to join the ON rows into one prompt instead.
+- Your prompt goes **first**, exactly as you wrote it (put trigger words at the start).
+- **add look + lens text ON:** the look, lens and flash text are added after your prompt. **OFF:** Moss gets only your prompt.
+- With the writer OFF, the colour guides and the **People** switches don't apply (they are instructions for the AI writer).
+  Everything else still works: seed, size, negative, LoRAs, second pass, face fix, detail, grain and KEEP / BIN.
+- Same seed + same prompt = the same picture every time.
 
 ### Size and lens (1c)
 Pick a shape and a size. A lens changes the feel of the picture.

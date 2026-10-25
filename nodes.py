@@ -317,6 +317,8 @@ class KreativeColourSwap:
 
 WRITER_SWITCH = "AI prompt writer"
 LOOK_TEXT_SWITCH = "add look + lens text"
+ONE_PER_ROW = "One image per ON row"
+COMBINE_ROWS = "Combine ON rows into one prompt"
 MY_PROMPT_ROWS = '[{"enabled":true,"text":""},{"enabled":false,"text":""},{"enabled":false,"text":""}]'
 
 
@@ -344,7 +346,9 @@ class KreativeMyPrompt:
                                    tip="OFF = skip the AI prompt writer and send your own prompt to Moss."),
             LOOK_TEXT_SWITCH: _switch("ON · look, lens + flash added after my prompt", "OFF · send my prompt exactly",
                                       default=True, tip="Only used when the AI prompt writer is OFF."),
-            "selection_mode": (["Single Active (Radio)", "Combine All ON Rows"], {"default": "Single Active (Radio)"}),
+            "selection_mode": ([ONE_PER_ROW, COMBINE_ROWS], {"default": ONE_PER_ROW,
+                               "tooltip": "One image per ON row: Run makes one picture for every row that is ON. "
+                                          "Combine: all ON rows are joined into one prompt (one picture)."}),
             "delimiter": ("STRING", {"default": " ", "multiline": False}),
             "prompt_data": ("STRING", {"default": MY_PROMPT_ROWS, "multiline": True}),
         }}
@@ -367,8 +371,8 @@ class KreativeMyPrompt:
             rows = [{"enabled": True, "text": prompt_data}]
         texts = [str(r.get("text", "")).strip() for r in rows
                  if isinstance(r, dict) and r.get("enabled") and str(r.get("text", "")).strip()]
-        if selection_mode == "Single Active (Radio)":
-            texts = texts[:1]
+        if selection_mode != COMBINE_ROWS and selection_mode != "Combine All ON Rows":
+            texts = texts[:1]  # one image per ON row: the browser queues one run per row, each with one row ON
         return delimiter.join(texts).strip()
 
     def go(self, selection_mode, delimiter, prompt_data, **kw):

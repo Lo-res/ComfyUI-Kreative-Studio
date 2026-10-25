@@ -91,8 +91,8 @@ export function autoGrow(ta) {
         ta.style.height = `${sh + 2}px`;
     } else {
         // not attached yet (or no layout): estimate so it is never zero
-        const lines = Math.max(3, Math.ceil((ta.value || "").length / 58));
-        ta.style.height = `${lines * 16 + 10}px`;
+        const lines = Math.max(8, Math.ceil((ta.value || "").length / 58));
+        ta.style.height = `${lines * 19 + 10}px`;
     }
 }
 
@@ -273,7 +273,7 @@ export function createPromptMultiUI({ doc, getRows, setRows, getMode, onChange }
 
             const textArea = doc.createElement("textarea");
             textArea.value = row.text || "";
-            textArea.rows = 3;
+            textArea.rows = 8;
             textArea.placeholder = `Write prompt #${idx + 1}... (put LoRA trigger words first)`;
             Object.assign(textArea.style, {
                 flex: "1",
@@ -283,7 +283,8 @@ export function createPromptMultiUI({ doc, getRows, setRows, getMode, onChange }
                 border: "1px solid #3c3c3c",
                 borderRadius: "4px",
                 padding: "4px 6px",
-                fontSize: "11.5px",
+                fontSize: "13px",
+                lineHeight: "1.45",
                 resize: "none",
                 overflow: "hidden",
                 fontFamily: "sans-serif",
