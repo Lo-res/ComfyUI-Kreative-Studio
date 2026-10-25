@@ -1,5 +1,6 @@
 """Kreative Studio nodes: seed control, on/off switch, detail mix, JPEG crunch, keep-or-bin output."""
 import io
+import json
 import random
 
 import numpy as np
@@ -314,6 +315,74 @@ class KreativeColourSwap:
         return (torch.from_numpy(out).to(image.device, image.dtype),)
 
 
+WRITER_SWITCH = "AI prompt writer"
+LOOK_TEXT_SWITCH = "add look + lens text"
+MY_PROMPT_ROWS = '[{"enabled":true,"text":""},{"enabled":false,"text":""},{"enabled":false,"text":""}]'
+
+
+def _reset_moss_timer():
+    """1a normally starts the generation timer. With the AI writer off 1a is skipped, so start it here."""
+    import sys
+    import time
+    for mod in list(sys.modules.values()):
+        sess = getattr(mod, "_TIMER_SESSION", None)
+        if isinstance(sess, dict) and "laps" in sess:
+            now = time.time()
+            sess.update(start_time=now, last_lap_time=now, laps=[], active=True)
+            return
+
+
+class KreativeMyPrompt:
+    """Your own prompts. Switch the AI prompt writer OFF and the selected row goes to Moss as written:
+    first in the prompt (good for LoRA trigger words), with no rewriting and no safety nets.
+    js/kreative_myprompt.js mutes the prompt writer when it is OFF, so it does not run at all."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {
+            WRITER_SWITCH: _switch("ON · writes the prompt from 1a", "OFF · use my prompt below", default=True,
+                                   tip="OFF = skip the AI prompt writer and send your own prompt to Moss."),
+            LOOK_TEXT_SWITCH: _switch("ON · look, lens + flash added after my prompt", "OFF · send my prompt exactly",
+                                      default=True, tip="Only used when the AI prompt writer is OFF."),
+            "selection_mode": (["Single Active (Radio)", "Combine All ON Rows"], {"default": "Single Active (Radio)"}),
+            "delimiter": ("STRING", {"default": " ", "multiline": False}),
+            "prompt_data": ("STRING", {"default": MY_PROMPT_ROWS, "multiline": True}),
+        }}
+
+    RETURN_TYPES = ("STRING", "STRING")
+    RETURN_NAMES = ("my_prompt", "my_prompt_exact")
+    FUNCTION = "go"
+    CATEGORY = CAT
+
+    @classmethod
+    def IS_CHANGED(cls, **kw):
+        # With the writer off this node starts the timer, so let it run every time (like 1a).
+        return float("nan") if not kw.get(WRITER_SWITCH, True) else ""
+
+    @staticmethod
+    def _selected(prompt_data, selection_mode, delimiter):
+        try:
+            rows = json.loads(prompt_data) if prompt_data and prompt_data.strip() else []
+        except Exception:
+            rows = [{"enabled": True, "text": prompt_data}]
+        texts = [str(r.get("text", "")).strip() for r in rows
+                 if isinstance(r, dict) and r.get("enabled") and str(r.get("text", "")).strip()]
+        if selection_mode == "Single Active (Radio)":
+            texts = texts[:1]
+        return delimiter.join(texts).strip()
+
+    def go(self, selection_mode, delimiter, prompt_data, **kw):
+        if kw.get(WRITER_SWITCH, True):
+            return ("", None)  # AI writer is on: nothing from here
+        text = self._selected(prompt_data, selection_mode, delimiter)
+        if not text:
+            raise ValueError("MY PROMPT: the AI prompt writer is OFF but no prompt row is ON with text in it. "
+                             "Type a prompt and switch its row ON, or switch the AI prompt writer back ON.")
+        _reset_moss_timer()
+        exact = None if kw.get(LOOK_TEXT_SWITCH, True) else text
+        return (text, exact)
+
+
 OWN_STYLE = "✏️ Your own style (type it below)"
 VELVIA = ("A Fujifilm Velvia 50 slide photograph. Shot on Fujifilm Velvia 50 colour reversal film: "
           "ultra-saturated colours, deep blue skies, vivid greens and reds, rich contrast with deep shadows, "
@@ -431,6 +500,7 @@ NODE_CLASS_MAPPINGS = {
     "KreativeJPEGCrunch": KreativeJPEGCrunch,
     "KreativeKeep": KreativeKeep,
     "KreativeColourSwap": KreativeColourSwap,
+    "KreativeMyPrompt": KreativeMyPrompt,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -442,4 +512,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "KreativeJPEGCrunch": "Kreative JPEG Crunch",
     "KreativeKeep": "Kreative Result (Keep or Bin)",
     "KreativeColourSwap": "Kreative Colour Swap (false-colour film)",
+    "KreativeMyPrompt": "Kreative My Prompt (AI prompt writer ON / OFF)",
 }
