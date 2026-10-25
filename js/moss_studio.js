@@ -4,7 +4,7 @@ import { seedApi } from "./kreative_seed.js";
 import { keepImages } from "./kreative_keep.js";
 
 // ---------------------------------------------------------------------------
-// Moss Studio: a calm, one-screen front end for the Moss v5 workflow.
+// Moss Studio: a calm, one-screen front end for the Moss v6 workflow.
 // It only changes the real graph (widgets + group mute), so "Show full
 // workflow" always shows exactly what the Studio set up.
 // ---------------------------------------------------------------------------
@@ -263,8 +263,8 @@ class Studio {
             h("button", { type: "button", onclick: () => this.toggle(false) }, "⚙ Show full workflow"));
         if (!this.compatible()) {
             return h("div", {}, top, h("div", { class: "ks-missing" },
-                h("p", {}, "This screen works with the Moss v5 workflow."),
-                h("p", {}, "Open moss-image-sft_v5 from your workflows, then click 🌿 Moss Studio again.")));
+                h("p", {}, "This screen works with the Moss v6 workflow."),
+                h("p", {}, "Open moss-image-sft_v6_A_compact from your workflows, then click 🌿 Moss Studio again.")));
         }
         return h("div", {}, top, h("main", { class: "ks-wrap" },
             h("div", {}, this.ideaStep(), this.lookStep(), this.peopleStep(), this.shapeStep(), this.extrasStep(), this.seedStep()),

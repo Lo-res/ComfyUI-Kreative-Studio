@@ -2,7 +2,8 @@ import { app } from "../../scripts/app.js";
 
 // Big, simple seed control: -1 / +1 / New / Previous, plus "new each run".
 const NEW_EACH_RUN = "New seed each run";
-const randomSeed = () => Math.floor(Math.random() * 1000000); // short numbers are easier to read
+const MAX_SEED = 4294967295; // same limit as the node (SeedVR2 accepts up to 2^32 - 1)
+const randomSeed = () => Math.floor(Math.random() * (MAX_SEED + 1)); // any seed from 0 to 4,294,967,295
 
 export function seedApi(node) {
     const seedW = node.widgets?.find((w) => w.name === "seed_number");
@@ -16,7 +17,7 @@ export function seedApi(node) {
     };
     const set = (v, remember = true) => {
         if (!seedW) return;
-        v = Math.max(0, Math.min(4294967295, Math.round(Number(v) || 0)));
+        v = Math.max(0, Math.min(MAX_SEED, Math.round(Number(v) || 0)));
         if (remember && v !== seedW.value) {
             node._kHistory.push(seedW.value);
             if (node._kHistory.length > 20) node._kHistory.shift();
