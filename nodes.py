@@ -379,8 +379,11 @@ class KreativeMyPrompt:
             raise ValueError("MY PROMPT: the AI prompt writer is OFF but no prompt row is ON with text in it. "
                              "Type a prompt and switch its row ON, or switch the AI prompt writer back ON.")
         _reset_moss_timer()
-        exact = None if kw.get(LOOK_TEXT_SWITCH, True) else text
-        return (text, exact)
+        if kw.get(LOOK_TEXT_SWITCH, True):
+            # the look text follows, so end your prompt as a sentence: "...overcast. A Kodak Portra 400 ..."
+            lead = text if text[-1] in ".!?" else text.rstrip(",;: ") + "."
+            return (lead, None)
+        return (text, text)
 
 
 OWN_STYLE = "✏️ Your own style (type it below)"
