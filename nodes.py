@@ -242,7 +242,28 @@ SWAP_PRESETS = {
 }
 
 
-def colour_swap(rgb, preset="LomoChrome Purple", strength=1.0):
+def _box_blur(x, r):
+    """Mean filter over a (2r+1) square on the last two spatial axes of an (..., H, W) array."""
+    p = np.pad(x, [(0, 0)] * (x.ndim - 2) + [(r + 1, r), (r + 1, r)], mode="edge")
+    c = p.cumsum(-1).cumsum(-2)
+    k = 2 * r + 1
+    return (c[..., k:, k:] - c[..., :-k, k:] - c[..., k:, :-k] + c[..., :-k, :-k]) / (k * k)
+
+
+def _sky_mask(rgb, v):
+    """Smooth, bright areas (open sky, clouds). Leaves and grass are busy, so they score low."""
+    lum = rgb[..., 0] * 0.2126 + rgb[..., 1] * 0.7152 + rgb[..., 2] * 0.0722
+    r = max(2, int(round(min(lum.shape[-2:]) / 160)))
+    texture = _box_blur(np.abs(lum - _box_blur(lum, r)), r)
+    smooth = 1.0 - _ramp(texture, 0.02, 0.045)
+    # Only count it as sky where clear teal sky is nearby (keeps white dresses, walls and paths out).
+    h, s, _ = _rgb_to_hsv(rgb)
+    teal = _ramp(h, 150, 158) * (1 - _ramp(h, 195, 205)) * _ramp(s, 0.2, 0.35)
+    near_sky = _ramp(_box_blur(teal, r * 10), 0.08, 0.25)
+    return _box_blur(smooth * _ramp(v, 0.45, 0.65) * near_sky, r)
+
+
+def colour_swap(rgb, preset="LomoChrome Purple", strength=1.0, keep_sky_clean=True):
     """rgb: float array (..., 3) in 0-1. Shifts whole hue bands like a false-colour film.
     Greys, whites and skin are left alone (low saturation and skin hues are outside every band)."""
     h, s, v = _rgb_to_hsv(rgb)
@@ -256,6 +277,15 @@ def colour_swap(rgb, preset="LomoChrome Purple", strength=1.0):
         t = 278.0 + 12.0 * (1 - v) if target == "violet" else np.full_like(h, target)
         swapped = _hsv_to_rgb(t, np.clip(s * sboost, 0, 1), v)
         out = out * (1 - w[..., None]) + swapped * w[..., None]
+    if keep_sky_clean:
+        # Sky guard: inside the sky, anything that is not teal (purple, pink, lavender-grey haze) becomes
+        # a cool teal-white, so the sky never shows purple. Bright cloud tops stay pure white.
+        h2, s2, v2 = _rgb_to_hsv(out)
+        not_teal = 1.0 - _ramp(h2, 140, 152) * (1 - _ramp(h2, 200, 212))
+        w = _sky_mask(out, v2) * not_teal * strength
+        tint = 0.07 * (1.0 - _ramp(v2, 0.86, 0.96))
+        target = _hsv_to_rgb(np.full_like(h2, 176.0), np.maximum(s2 * 0.5, tint), v2)
+        out = out * (1 - w[..., None]) + target * w[..., None]
     return np.clip(out, 0.0, 1.0)
 
 
