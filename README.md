@@ -189,7 +189,7 @@ Don't like it? Press **🗑 BIN**.
 | **E · Aerochrome IR** | 🧪 **Experimental. Don't use it yet.** |
 | **G · Kodak Portra 400** | Classic Portra colour: creamy pastel highlights, sage greens, pastel cyan skies, coral reds, golden-peach skin and soft lifted shadows. A colour guide tells the prompt writer how Portra renders each colour. |
 | **H · Kodak Tri-X 400** | Classic black and white, **always**. Colour words in your idea are removed, the prompt writer describes tones only, and the finished picture is turned fully grey. |
-| **I · CineStill 800T** | Night film: cool blues, warm lights, red glow round lamps. |
+| **I · CineStill 800T** | Tungsten cinema film: a soft crimson-orange halation glow around light sources only (lamps, neon, headlights), objects keep clean edges; cool cyan and petrol-teal skies, mint fluorescent tubes, champagne-gold street lamps, natural porcelain-peach skin, lifted teal shadows. A colour guide tells the prompt writer how 800T renders each light, and signs read plain words (OPEN, CAFE) rather than the film name. |
 | **J · Polaroid** | Soft instant photo. Sharpen, Detail and lens switch off by themselves. |
 | **K · LomoChrome Purple** | Lomography's purple film: leaves, grass and hedges turn violet and lavender, the sky goes teal, yellows go pink, skin stays natural. A colour guide tells the prompt writer what colour everything should be, so Moss paints it that way. |
 
