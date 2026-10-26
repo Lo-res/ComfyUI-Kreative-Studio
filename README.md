@@ -3,7 +3,7 @@
 Type a simple idea and get a finished photo in a film or phone look.
 
 This repo has two things:
-- **The Moss Film Looks workflow (v6).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, hand fix, detail and grain.
+- **The Moss Film Looks workflow (v7).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, hand fix, detail and grain.
 - **The Kreative Studio nodes.** They give the workflow its Control Panel, seed buttons, ON/OFF switches and **KEEP / BIN** buttons.
 
 ## Examples
@@ -114,7 +114,6 @@ git clone https://github.com/Lo-res/comfyui_aerochrome
 | **ComfyUI-Impact-Pack** | Face fix, Hand fix | `https://github.com/ltdrdata/ComfyUI-Impact-Pack` |
 | **ComfyUI-Impact-Subpack** | Face fix and Hand fix (face and hand finders) | `https://github.com/ltdrdata/ComfyUI-Impact-Subpack` |
 | **ComfyUI-SeedVR2_VideoUpscaler** | Detail | `https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler` |
-| **ComfyUI-Pixaroma** | prompt display | `https://github.com/pixaroma/ComfyUI-Pixaroma` |
 | **comfyui-propost** | film grain | `https://github.com/digitaljohn/comfyui-propost` |
 | **ComfyUI_essentials** | black and white finish for Tri-X | `https://github.com/cubiq/ComfyUI_essentials` |
 
@@ -159,7 +158,7 @@ These are the exact files the workflow loads. If you saved a file under a differ
 ---
 
 ## 4. Open the workflow
-1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v6_A_compact.json`**.
+1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v7_A_compact.json`**.
 2. Drag it onto the ComfyUI window.
 3. **Red nodes?** A pack is missing. Click **Manager** → **Install Missing Custom Nodes**, then restart.
 4. In the **MODEL PANEL**, check that each box shows your model file.

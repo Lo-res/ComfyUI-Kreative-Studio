@@ -8,7 +8,7 @@
 #   1. finds your ComfyUI folder (or asks for it)
 #   2. downloads Lo's 3 packs + the 7 other packs the workflow needs (skips any you already have)
 #   3. installs their Python packages with ComfyUI's own Python
-#   4. copies the Moss Film Looks v6 workflow into your workflows folder
+#   4. copies the Moss Film Looks v7 workflow into your workflows folder
 # It does NOT download the models - see section 3 of the README for those.
 
 $ErrorActionPreference = "Stop"
@@ -21,11 +21,10 @@ $Packs = @(
     @{ Name = "ComfyUI-Impact-Pack";           Repo = "ltdrdata/ComfyUI-Impact-Pack" },
     @{ Name = "ComfyUI-Impact-Subpack";        Repo = "ltdrdata/ComfyUI-Impact-Subpack" },
     @{ Name = "ComfyUI-SeedVR2_VideoUpscaler"; Repo = "numz/ComfyUI-SeedVR2_VideoUpscaler" },
-    @{ Name = "ComfyUI-Pixaroma";              Repo = "pixaroma/ComfyUI-Pixaroma" },
     @{ Name = "comfyui-propost";               Repo = "digitaljohn/comfyui-propost" },
     @{ Name = "ComfyUI_essentials";            Repo = "cubiq/ComfyUI_essentials" }
 )
-$Workflow = "moss-image-sft_v6_A_compact.json"
+$Workflow = "moss-image-sft_v7_A_compact.json"
 
 function Say($msg, $colour = "White") { Write-Host $msg -ForegroundColor $colour }
 
@@ -140,5 +139,5 @@ if ($Failed.Count) {
 Say "Next:" Cyan
 Say "  1. Download the models - README section 3 (about 20 GB)." White
 Say "  2. Restart ComfyUI and refresh your browser (Ctrl + F5)." White
-Say "  3. Open 'moss-image-sft_v6_A_compact' from the Workflows sidebar." White
+Say "  3. Open 'moss-image-sft_v7_A_compact' from the Workflows sidebar." White
 Say ""

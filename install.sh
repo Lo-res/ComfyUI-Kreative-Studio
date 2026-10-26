@@ -11,7 +11,7 @@
 #   1. finds your ComfyUI folder (or asks for it)
 #   2. downloads Lo's 3 packs + the 7 other packs the workflow needs (skips any you already have)
 #   3. installs their Python packages with ComfyUI's own Python
-#   4. copies the Moss Film Looks v6 workflow into your workflows folder
+#   4. copies the Moss Film Looks v7 workflow into your workflows folder
 # It does NOT download the models - see section 3 of the README for those.
 
 set -u
@@ -24,11 +24,10 @@ PACKS=(
   "ComfyUI-Impact-Pack|ltdrdata/ComfyUI-Impact-Pack"
   "ComfyUI-Impact-Subpack|ltdrdata/ComfyUI-Impact-Subpack"
   "ComfyUI-SeedVR2_VideoUpscaler|numz/ComfyUI-SeedVR2_VideoUpscaler"
-  "ComfyUI-Pixaroma|pixaroma/ComfyUI-Pixaroma"
   "comfyui-propost|digitaljohn/comfyui-propost"
   "ComfyUI_essentials|cubiq/ComfyUI_essentials"
 )
-WORKFLOW="moss-image-sft_v6_A_compact.json"
+WORKFLOW="moss-image-sft_v7_A_compact.json"
 
 c_cyan='\033[36m'; c_green='\033[32m'; c_yellow='\033[33m'; c_red='\033[31m'; c_grey='\033[90m'; c_off='\033[0m'
 say() { printf "%b%s%b\n" "${2:-}" "$1" "$c_off"; }
@@ -135,7 +134,7 @@ fi
 say "Next:" "$c_cyan"
 say "  1. Download the models - README section 3 (about 20 GB)."
 say "  2. Restart ComfyUI and refresh your browser."
-say "  3. Open 'moss-image-sft_v6_A_compact' from the Workflows sidebar."
+say "  3. Open 'moss-image-sft_v7_A_compact' from the Workflows sidebar."
 say ""
 say "Note: the workflow is tuned for NVIDIA graphics cards. On a Mac it may run slowly or not at all." "$c_yellow"
 say ""
