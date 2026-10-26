@@ -183,7 +183,7 @@ Don't like it? Press **🗑 BIN**.
 |---|---|
 | **A · Clean** | No film look. |
 | **✏️ Your own style** | Type any film or camera look. Start with one short sentence naming it, then describe the colours, grain and light. Describe colours as they **look in the photo** ("violet leaves, teal sky"), not as changes ("greens turn violet"). The example in the box is Fujifilm Velvia 50. |
-| **B · 1970s Kodachrome** | Warm, faded 70s snapshot. |
+| **B · 1970s Kodachrome** | Kodachrome 64 slide film: dense lacquered scarlet reds, cadmium-gold yellows, deep cobalt skies, muted olive foliage, bronzed skin, warm ivory whites, deep velvety black shadows and razor-sharp detail. A colour guide tells the prompt writer how Kodachrome renders each colour. |
 | **C · Cheap iPhone** | Grainy phone photo. JPEG crunch is always on. |
 | **D · Aerochrome** | Infrared film look: living plants glow crimson and pink, water goes black, and stone, brick, metal and clothes keep their own colours. A colour guide tells the prompt writer what colour everything should be, and the look asks for real film character: grain, red halation and soft, faded blacks. |
 | **E · Aerochrome IR** | 🧪 **Experimental. Don't use it yet.** |
