@@ -52,9 +52,21 @@ const LOOK_GROUP = (name) => (name === OWN ? "F" : name.charAt(0));
 const LOOKS = (node) => (node.widgets || []).filter((w) => w.type !== "kreative_heading" &&
     (w.name === OWN || (/^[A-K] · /.test(w.name) && !PEOPLE_NAMES.has(w.name))));
 const FLASH = "📸 camera flash (any look)";
+const AVERAGE = "🧑 ordinary people";
 
 // Flash add-on: the wording lives in "FLASH wording" inside the engine; the panel switch
 // copies it into "FLASH add-on" (or empties it), which is joined onto every prompt.
+// Average people add-on: two wordings inside the engine (one joined onto the prompt, one added to
+// the prompt-writer rules); the panel switch copies them into their add-on nodes (or empties them).
+function pushAverage(panel) {
+    const on = !!wid(panel, AVERAGE)?.value;
+    for (const part of ["prompt", "writer rule"]) {
+        const src = findNode((n) => (n.title || "").startsWith(`AVERAGE wording - ${part}`));
+        const dst = findNode((n) => (n.title || "").startsWith(`AVERAGE add-on - ${part}`));
+        const w = wid(dst, "value");
+        if (w) w.value = on ? String(wid(src, "value")?.value || "") : "";
+    }
+}
 function pushFlash(panel) {
     const on = !!wid(panel, FLASH)?.value;
     const src = findNode((n) => (n.title || "").startsWith("FLASH wording"));
@@ -168,6 +180,7 @@ function apply(node, w) {
         pushStyle(node);
         lookEffects(node);
     } else if (name === FLASH) pushFlash(node);
+    else if (name === AVERAGE) pushAverage(node);
     else if (name === "your own style") pushStyle(node);
     else if (name === "second pass") setOn(T.polish, !!w.value);
     else if (name === "steps") { const t = wid(T.steps(), "value"); if (t) t.value = w.value; }
@@ -180,6 +193,7 @@ function sync(panel) {
     if (groups(T.look("A")).length) LOOKS(panel).forEach((w) => (w.value = isOn(T.look(LOOK_GROUP(w.name)))));
     pushStyle(panel);
     pushFlash(panel);
+    pushAverage(panel);
     pushNegative(panel);
     if (groups(T.people("A")).length) PEOPLE(panel).forEach((w) => (w.value = isOn(T.people(w.name.charAt(0)))));
     if (groups(T.polish).length) set("second pass", isOn(T.polish));
@@ -225,9 +239,9 @@ app.registerExtension({
             addHeading(node, "A · Clean (no look)", "LOOK  ·  switch ONE on");
             addHeading(node, "your own style", "YOUR OWN STYLE  ·  used when ✏️ is ON");
             addHeading(node, FLASH, "ADD-ON  ·  works with every look");
-            addHeading(node, "A · Caucasian", "PEOPLE  ·  switch ONE on");
+            addHeading(node, AVERAGE, "PEOPLE  ·  average switch + ONE choice below");
             const styleW = wid(node, "your own style");
-            if (styleW) styleW.beforeQueued = () => { pushStyle(node); pushFlash(node); pushNegative(node); }; // always send the latest text
+            if (styleW) styleW.beforeQueued = () => { pushStyle(node); pushFlash(node); pushAverage(node); pushNegative(node); }; // always send the latest text
             addHeading(node, "steps", "QUALITY  ·  25 = quick, 50 = best");
             addHeading(node, "second pass", "EXTRAS  ·  ON or off\n⏳ Detail (SeedVR2) is slow the first time: it loads 3.19 GB");
             node.setSize([Math.max(node.size[0], 480), node.computeSize()[1]]);

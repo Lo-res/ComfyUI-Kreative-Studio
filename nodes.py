@@ -393,6 +393,7 @@ PANEL_LOOKS = ["A · Clean (no look)", OWN_STYLE, "B · 1970s Kodachrome", "C ·
                "G · Kodak Portra 400 (colour negative)", "H · Kodak Tri-X 400 (black & white)", "I · CineStill 800T (tungsten, night)", "J · Polaroid (soft, no sharpening)",
                "K · LomoChrome Purple (purple foliage)"]
 FLASH = "📸 camera flash (any look)"
+AVERAGE = "🧑 ordinary people"
 PANEL_PEOPLE = ["A · Caucasian", "B · Asian", "C · As in my idea", "D · No people"]
 
 
@@ -414,6 +415,7 @@ class KreativeControlPanel:
             "tooltip": "Used when ✏️ Your own style is ON. Start with one short sentence naming the film or camera, "
                        "then describe the colours, grain and light."})
         req[FLASH] = _switch("ON · flash on every look", tip="Adds a direct on-camera flash to whichever look is on.")
+        req[AVERAGE] = _switch("ON · ordinary real people", tip="Asks for average-looking faces and bodies instead of model-perfect people. Works with any People choice.")
         for i, name in enumerate(PANEL_PEOPLE):
             req[name] = _switch(tip="People: switch ONE on.", default=(i == 2))
         req["steps"] = ("INT", {"default": 50, "min": 4, "max": 100, "step": 1,

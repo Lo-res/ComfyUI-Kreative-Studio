@@ -210,6 +210,7 @@ These switches give you control over that.
 - **B · Asian**: used when your idea doesn't say.
 - **C · As in my idea**: follows your words exactly. Good for mixed groups, or to describe people yourself.
 - **D · No people**: places and things only.
+- **🧑 Ordinary people** (separate ON/OFF, works with A, B or C): asks for average-looking faces and average bodies, real everyday people instead of the model-perfect ones most image models draw. The wording lives in the **AVERAGE PEOPLE** group inside the engine if you want to edit it.
 
 ### My prompt (1n): write the prompt yourself
 Under the Control Panel there is a **MY PROMPT** box. Use it when you want full control, for example for **LoRA trigger words**.
