@@ -420,6 +420,7 @@ class KreativeControlPanel:
                                 "tooltip": "Quality. 25 = quick test, 50 = best (slower)."})
         req["second pass"] = _switch("ON · finer polish, slower", tip="A second, finer pass.")
         req["face fix"] = _switch("ON · fixes small faces", tip="Finds faces and redraws them bigger.")
+        req["hand fix"] = _switch("ON · fixes hands and fingers", tip="Finds hands and redraws them bigger. Runs after face fix.")
         req["detail (SeedVR2)"] = _switch("ON · ⏳ 1st run slow: loads 3.19 GB",
                                           tip="Sharper fine detail. The first run loads a 3.19 GB model, so it is slow.")
         req["JPEG crunch"] = _switch("ON · phone compression", "off (always on for iPhone)",

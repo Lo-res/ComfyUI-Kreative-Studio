@@ -3,7 +3,7 @@
 Type a simple idea and get a finished photo in a film or phone look.
 
 This repo has two things:
-- **The Moss Film Looks workflow (v6).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, detail and grain.
+- **The Moss Film Looks workflow (v6).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, hand fix, detail and grain.
 - **The Kreative Studio nodes.** They give the workflow its Control Panel, seed buttons, ON/OFF switches and **KEEP / BIN** buttons.
 
 ## Examples
@@ -114,7 +114,7 @@ git clone https://github.com/Lo-res/comfyui_aerochrome
 | Pack | What it's for | Link |
 |---|---|---|
 | **rgthree-comfy** | switches inside the engine | `https://github.com/rgthree/rgthree-comfy` |
-| **ComfyUI-Impact-Pack** | Face fix | `https://github.com/ltdrdata/ComfyUI-Impact-Pack` |
+| **ComfyUI-Impact-Pack** | Face fix, Hand fix | `https://github.com/ltdrdata/ComfyUI-Impact-Pack` |
 | **ComfyUI-Impact-Subpack** | Face fix (face finder) | `https://github.com/ltdrdata/ComfyUI-Impact-Subpack` |
 | **ComfyUI-SeedVR2_VideoUpscaler** | Detail | `https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler` |
 | **ComfyUI-Pixaroma** | prompt display | `https://github.com/pixaroma/ComfyUI-Pixaroma` |
@@ -142,6 +142,7 @@ Do this every time you install or update a pack.
 | Moss VAE | `vae/` | [Comfy-Org/MOSS-Image](https://huggingface.co/Comfy-Org/MOSS-Image) → `flux2-vae_small.safetensors` |
 | Prompt writer (5.2 GB) | `text_encoders/` | [Huihui Qwen3-VL 4B abliterated (comfy)](https://huggingface.co/ahmed22xa/Huihui-Qwen3-VL-4B-Instruct-abliterated-comfy) → the `fp8_scaled` file |
 | Face finder | `ultralytics/bbox/` | [Bingsu/adetailer](https://huggingface.co/Bingsu/adetailer) → `face_yolov8m.pt` |
+| Hand finder | `ultralytics/bbox/` | [Bingsu/adetailer](https://huggingface.co/Bingsu/adetailer) → `hand_yolov8s.pt` |
 | SeedVR2 3B fp8 + VAE (3.19 GB) | `SEEDVR2/` | **Downloads itself** the first time you use Detail. Or get it from [numz/SeedVR2_comfyUI](https://huggingface.co/numz/SeedVR2_comfyUI) |
 | LoRAs (optional) | `loras/` | Your own |
 
@@ -152,6 +153,7 @@ ComfyUI/models/
 ├── text_encoders/Huihui-Qwen3-VL-4B-Instruct-abliterated-fp8_scaled.safetensors
 ├── vae/flux2-vae_small.safetensors
 ├── ultralytics/bbox/face_yolov8m.pt
+├── ultralytics/bbox/hand_yolov8s.pt
 └── SEEDVR2/   (fills itself)
 ```
 
@@ -220,7 +222,7 @@ Under the Control Panel there is a **MY PROMPT** box. Use it when you want full 
 - Your prompt goes **first**, exactly as you wrote it (put trigger words at the start).
 - **add look + lens text ON:** the look, lens and flash text are added after your prompt. **OFF:** Moss gets only your prompt.
 - With the writer OFF, the colour guides and the **People** switches don't apply (they are instructions for the AI writer).
-  Everything else still works: seed, size, negative, LoRAs, second pass, face fix, detail, grain and KEEP / BIN.
+  Everything else still works: seed, size, negative, LoRAs, second pass, face fix, hand fix, detail, grain and KEEP / BIN.
 - Same seed + same prompt = the same picture every time.
 
 ### Size and lens (1c)
@@ -245,6 +247,7 @@ The seed is the picture's ID number.
 - **Steps**: 25 = quick test, 50 = best.
 - **Second pass**: a finer polish. Slower.
 - **Face fix**: redraws small or far-away faces.
+- **Hand fix**: redraws hands and fingers (runs after Face fix). Each hand adds about 10–15 s.
 - **Detail (SeedVR2)**: sharper fine detail. **detail_mix** 0 = keep the grit, 1 = full clean-up. Start at 0.5.
   ⏳ The first run is slow because it loads a 3.19 GB model.
 - **JPEG crunch**: phone-style compression, for any look.

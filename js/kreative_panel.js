@@ -41,11 +41,12 @@ const T = {
     people: (L) => (t) => t.startsWith(`PEOPLE ${L}`),
     polish: (t) => t.includes("Second pass"),
     steps: () => findNode((n) => n.type === "PrimitiveInt" && /^1f\./.test(n.title || "")),
-    face: () => findNode((n) => n.type === "KreativeImageOnOff"),
+    face: () => findNode((n) => n.type === "KreativeImageOnOff" && !(n.title || "").startsWith("HAND FIX")),
+    hand: () => findNode((n) => n.type === "KreativeImageOnOff" && (n.title || "").startsWith("HAND FIX")),
     detail: () => findNode((n) => n.type === "KreativeDetailMix"),
     jpeg: () => findNode((n) => n.type === "KreativeJPEGCrunch"),
 };
-const SWITCHES = { "face fix": "face", "detail (SeedVR2)": "detail", "JPEG crunch": "jpeg" };
+const SWITCHES = { "face fix": "face", "hand fix": "hand", "detail (SeedVR2)": "detail", "JPEG crunch": "jpeg" };
 const OWN = "✏️ Your own style (type it below)";
 const LOOK_GROUP = (name) => (name === OWN ? "F" : name.charAt(0));
 const LOOKS = (node) => (node.widgets || []).filter((w) => w.type !== "kreative_heading" &&
