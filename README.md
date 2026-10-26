@@ -11,7 +11,7 @@ This repo has two things:
 | | | |
 |---|---|---|
 | ![](examples/preview/1.jpg) | ![](examples/preview/2.jpg) | ![](examples/preview/3.jpg) |
-| **C · Cheap iPhone** · 35mm · face fix · JPEG crunch | **B · 1970s Kodachrome** · 50mm | **H · Tri-X 400** · 8mm fisheye · camera flash · face fix · Detail |
+| **C · Cheap iPhone** · 35mm · face fix · JPEG crunch | **B · 1970s Kodachrome** · 35mm · 3:2 | **H · Tri-X 400** · 8mm fisheye · camera flash · face fix · Detail |
 | ![](examples/preview/5.jpg) | ![](examples/preview/6.jpg) | ![](examples/preview/7.jpg) |
 | **J · Polaroid** · camera flash | **A · Clean** · 50mm · face fix | **K · LomoChrome Purple** · 50mm · face fix |
 
@@ -20,9 +20,6 @@ This repo has two things:
 
 ![](examples/preview/8.jpg)
 **✏️ Your own style (1980s motion-picture film)** · My Prompt · 35mm · 16:9
-
-![](examples/preview/9.jpg)
-**B · 1970s Kodachrome** (Kodachrome 64 colour guide) · 35mm · 3:2
 
 > ⚠️ **Aerochrome IR (Look E) is experimental. Please don't use it yet.**
 > Work on it is still going on. The **comfyui_aerochrome** node is included so the workflow loads, and so anyone who wants to can look at the code and suggest fixes (open an **Issue** on [its page](https://github.com/Lo-res/comfyui_aerochrome)).
@@ -41,7 +38,7 @@ This repo has two things:
 ---
 
 ## 1. What you need
-- **ComfyUI**, a recent version that supports **MOSS-Image** and **subgraphs**. Update it first.
+- **ComfyUI, fully up to date.** **Update ComfyUI to the latest version first.** MOSS-Image support was added to ComfyUI in October 2026 (pull request #17095), so older versions can't load the model. The workflow also needs **subgraphs**, which recent versions have.
 - **ComfyUI-Manager** (optional). Newer ComfyUI versions no longer include it. No Manager? Use **Way 2** or **Way 3** below, and the links in **2b**.
 - An **NVIDIA graphics card**. Tested on an RTX 5060 Ti 16 GB with 32 GB RAM.
 - About **20 GB of free disk space** for the models.
@@ -115,7 +112,7 @@ git clone https://github.com/Lo-res/comfyui_aerochrome
 |---|---|---|
 | **rgthree-comfy** | switches inside the engine | `https://github.com/rgthree/rgthree-comfy` |
 | **ComfyUI-Impact-Pack** | Face fix, Hand fix | `https://github.com/ltdrdata/ComfyUI-Impact-Pack` |
-| **ComfyUI-Impact-Subpack** | Face fix (face finder) | `https://github.com/ltdrdata/ComfyUI-Impact-Subpack` |
+| **ComfyUI-Impact-Subpack** | Face fix and Hand fix (face and hand finders) | `https://github.com/ltdrdata/ComfyUI-Impact-Subpack` |
 | **ComfyUI-SeedVR2_VideoUpscaler** | Detail | `https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler` |
 | **ComfyUI-Pixaroma** | prompt display | `https://github.com/pixaroma/ComfyUI-Pixaroma` |
 | **comfyui-propost** | film grain | `https://github.com/digitaljohn/comfyui-propost` |
@@ -138,8 +135,8 @@ Do this every time you install or update a pack.
 | What | Put it in `ComfyUI/models/…` | Download |
 |---|---|---|
 | Moss image model (SFT, int8, 5.4 GB) | `diffusion_models/Moss/` | [Comfy-Org/MOSS-Image](https://huggingface.co/Comfy-Org/MOSS-Image) → `moss_image_sft_int8_convrot.safetensors` |
-| Moss text encoder | `text_encoders/` | [Comfy-Org/MOSS-Image](https://huggingface.co/Comfy-Org/MOSS-Image) → `qwen3.5_9b_w4a8_gptq.safetensors` |
-| Moss VAE | `vae/` | [Comfy-Org/MOSS-Image](https://huggingface.co/Comfy-Org/MOSS-Image) → `flux2-vae_small.safetensors` |
+| Moss text encoder (W4A8, 5.4 GB) | `text_encoders/` | [nif0/MOSS-Image-SFT-ComfyUI](https://huggingface.co/nif0/MOSS-Image-SFT-ComfyUI) → `qwen3.5_9b_moss_image_sft_w4a8_gptq.safetensors` |
+| Moss VAE (bf16, 125 MB) | `vae/` | [nif0/MOSS-Image-SFT-ComfyUI](https://huggingface.co/nif0/MOSS-Image-SFT-ComfyUI/tree/main/vae) → `moss_image_vae_bf16.safetensors` (mirror: [Epyan/MOSS-Image-SFT-ComfyUI](https://huggingface.co/Epyan/MOSS-Image-SFT-ComfyUI)) |
 | Prompt writer (5.2 GB) | `text_encoders/` | [Huihui Qwen3-VL 4B abliterated (comfy)](https://huggingface.co/ahmed22xa/Huihui-Qwen3-VL-4B-Instruct-abliterated-comfy) → the `fp8_scaled` file |
 | Face finder | `ultralytics/bbox/` | [Bingsu/adetailer](https://huggingface.co/Bingsu/adetailer) → `face_yolov8m.pt` |
 | Hand finder | `ultralytics/bbox/` | [Bingsu/adetailer](https://huggingface.co/Bingsu/adetailer) → `hand_yolov8s.pt` |
@@ -149,15 +146,15 @@ Do this every time you install or update a pack.
 ```
 ComfyUI/models/
 ├── diffusion_models/Moss/moss_image_sft_int8_convrot.safetensors
-├── text_encoders/qwen3.5_9b_w4a8_gptq.safetensors
+├── text_encoders/qwen3.5_9b_moss_image_sft_w4a8_gptq.safetensors
 ├── text_encoders/Huihui-Qwen3-VL-4B-Instruct-abliterated-fp8_scaled.safetensors
-├── vae/flux2-vae_small.safetensors
+├── vae/moss_image_vae_bf16.safetensors
 ├── ultralytics/bbox/face_yolov8m.pt
 ├── ultralytics/bbox/hand_yolov8s.pt
 └── SEEDVR2/   (fills itself)
 ```
 
-**File names don't match?** That's fine. After you open the workflow, pick your files in the **MODEL PANEL**.
+These are the exact files the workflow loads. If you saved a file under a different name, pick it in the **MODEL PANEL** after you open the workflow.
 
 ---
 
