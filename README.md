@@ -3,7 +3,7 @@
 Type a simple idea and get a finished photo in a film or phone look.
 
 This repo has two things:
-- **The Moss Film Looks workflow (v7).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, hand fix, detail and grain.
+- **The Moss Film Looks workflow (v8).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, hand fix, detail and grain.
 - **The Kreative Studio nodes.** They give the workflow its Control Panel, seed buttons, ON/OFF switches and **KEEP / BIN** buttons.
 
 ## Examples
@@ -76,7 +76,7 @@ You need **3 packs by Lo** and **7 other packs**.
 | Pack | What it does | Link |
 |---|---|---|
 | **ComfyUI-Kreative-Studio** (this repo) | Control Panel, Model Panel, seed, ON/OFF, detail mix, JPEG crunch, KEEP / BIN | `https://github.com/Lo-res/ComfyUI-Kreative-Studio` |
-| **ComfyUI-Kreative-Moss** | Idea list, size + lens (incl. XPan and Widelux), timers | `https://github.com/Lo-res/ComfyUI-Kreative-Moss` |
+| **ComfyUI-Kreative-Moss** (0.4.0 or newer) | Idea list (one image per ON row), size + lens (incl. XPan and Widelux), timers | `https://github.com/Lo-res/ComfyUI-Kreative-Moss` |
 | **comfyui_aerochrome** | Look E (🧪 experimental, don't use yet) | `https://github.com/Lo-res/comfyui_aerochrome` |
 
 Install **all three**. The workflow needs them all, even if you never use Look E.
@@ -158,7 +158,7 @@ These are the exact files the workflow loads. If you saved a file under a differ
 ---
 
 ## 4. Open the workflow
-1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v7_A_compact.json`**.
+1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v8.json`**.
 2. Drag it onto the ComfyUI window.
 3. **Red nodes?** A pack is missing. Click **Manager** → **Install Missing Custom Nodes**, then restart.
 4. In the **MODEL PANEL**, check that each box shows your model file.
@@ -170,7 +170,7 @@ This is the only workflow in the repo, so there's nothing else to pick.
 ## 5. How to use it
 
 ### The 4 steps
-1. **1a Your idea.** Type it. Click **ON** next to the row you want.
+1. **1a Your idea.** Type it. Click **ON** next to the row you want. Switch several rows ON and one Run makes one image per ON row.
 2. **CONTROL PANEL.** Pick a **look** and **people**. Set **steps**. Switch the extras **ON** or **OFF**.
 3. **1c Size.** Pick a shape. A lens is optional.
 4. Press **Run** (Ctrl + Enter).
@@ -204,6 +204,7 @@ These switches give you control over that.
 
 - **A · Caucasian**: on by default. Used when your idea doesn't say.
 - **B · Asian**: used when your idea doesn't say.
+- A and B also add a short note to your idea, so the AI writer always names each person's ethnicity. Ideas with nobody in them stay empty.
 - **C · As in my idea**: follows your words exactly. Good for mixed groups, or to describe people yourself.
 - **D · No people**: places and things only.
 - **🧑 Ordinary people** (separate ON/OFF, works with A, B or C): asks for average-looking faces and average bodies, real everyday people instead of the model-perfect ones most image models draw. The wording lives in the **AVERAGE PEOPLE** group inside the engine if you want to edit it.
