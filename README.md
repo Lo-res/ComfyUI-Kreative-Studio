@@ -268,6 +268,10 @@ Found a bug? Open an **Issue** on this page (the **Issues** tab at the top).
 
 ---
 
+## Support
+
+☕ If this saved you time, you can buy me a coffee: [buymeacoffee.com/kreative2.ai](https://buymeacoffee.com/kreative2.ai)
+
 ## Licence
 MIT: free for anyone to use, change and share. See [LICENSE](LICENSE).
 
