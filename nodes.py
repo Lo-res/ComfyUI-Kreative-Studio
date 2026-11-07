@@ -391,7 +391,9 @@ VELVIA = ("A Fujifilm Velvia 50 slide photograph. Shot on Fujifilm Velvia 50 col
 PANEL_LOOKS = ["A · Clean (no look)", OWN_STYLE, "B · 1970s Kodachrome", "C · Cheap iPhone",
                "D · Aerochrome (prompt)", "E · Aerochrome IR  🧪 EXPERIMENTAL",
                "G · Kodak Portra 400 (colour negative)", "H · Kodak Tri-X 400 (black & white)", "I · CineStill 800T (tungsten, night)", "J · Polaroid (soft, no sharpening)",
-               "K · LomoChrome Purple (purple foliage)"]
+               "K · LomoChrome Purple (purple foliage)",
+               "L · Agfa Ultra 100 (vivid daylight colour)",
+               "M · Agfachrome RSX II 200 (natural slide colour)"]
 FLASH = "📸 camera flash (any look)"
 AVERAGE = "🧑 ordinary people"
 PANEL_PEOPLE = ["A · Caucasian", "B · Asian", "C · As in my idea", "D · No people"]

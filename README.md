@@ -3,7 +3,7 @@
 Type a simple idea and get a finished photo in a film or phone look.
 
 This repo has two things:
-- **The Moss Film Looks workflow (v8).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, hand fix, detail and grain.
+- **The Moss Film Looks workflow (v9).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, hand fix, detail and grain.
 - **The Kreative Studio nodes.** They give the workflow its Control Panel, seed buttons, ON/OFF switches and **KEEP / BIN** buttons.
 
 ## Examples
@@ -158,7 +158,7 @@ These are the exact files the workflow loads. If you saved a file under a differ
 ---
 
 ## 4. Open the workflow
-1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v8.json`**.
+1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v9.json`**.
 2. Drag it onto the ComfyUI window.
 3. **Red nodes?** A pack is missing. Click **Manager** → **Install Missing Custom Nodes**, then restart.
 4. In the **MODEL PANEL**, check that each box shows your model file.
@@ -193,6 +193,8 @@ Don't like it? Press **🗑 BIN**.
 | **I · CineStill 800T** | Tungsten cinema film: a soft crimson-orange halation glow around light sources only (lamps, neon, headlights), objects keep clean edges; cool cyan and petrol-teal skies, mint fluorescent tubes, champagne-gold street lamps, natural porcelain-peach skin, lifted teal shadows. A colour guide tells the prompt writer how 800T renders each light, and signs read plain words (OPEN, CAFE) rather than the film name. |
 | **J · Polaroid** | SX-70 instant film colour, full-bleed (the picture fills the whole frame, no white border): creamy grainless texture, chalky butter-cream highlights, milky teal shadows, golden-peach skin, powdery cerulean skies, sage greens, soft corner vignette. A colour guide tells the prompt writer how instant film renders each colour. Sharpening, SeedVR2 and the lens are switched off for this look. |
 | **K · LomoChrome Purple** | Lomography's purple film: leaves, grass and hedges turn violet and lavender, the sky goes teal, yellows go pink, skin stays natural. A colour guide tells the prompt writer what colour everything should be, so Moss paints it that way. |
+| **L · Agfa Ultra 100** | Vivid daylight colour film: blazing vermilion and terracotta reds, chrome-yellow and marigold, deep cyan-cobalt skies, emerald greens, while whites and grey stone stay clean and neutral; soft warm shadows, light rosy skin, fine grain. Best for sunny streets, buildings and plants. A colour guide tells the prompt writer how Ultra 100 renders each colour, and signs read plain words (CAFE, OPEN). |
+| **M · Agfachrome RSX II 200** | Natural European slide film: subdued, matte colour, creamy honey-peach skin, brick and rust reds, sage greens, slate-cerulean skies, neutral grey stone and metal, gentle contrast with rich velvety blacks and fine crisp grain. Best for portraits and editorial scenes. A colour guide tells the prompt writer how RSX II renders each colour, and signs read plain words. |
 
 **📸 Camera flash** adds an on-camera flash to any look.
 
