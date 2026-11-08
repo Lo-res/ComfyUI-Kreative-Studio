@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-kreative-studio"
-description = "Control Panel, Model Panel, big seed, lazy ON/OFF, detail mix, JPEG crunch and KEEP/BIN preview nodes, plus the Moss Film Looks v9 workflow."
-version = "1.2.0"
+description = "Control Panel, Model Panel, big seed, lazy ON/OFF, detail mix, JPEG crunch and KEEP/BIN preview nodes, plus the Moss Film Looks v10 workflow."
+version = "1.3.0"
 license = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = []

@@ -3,7 +3,7 @@
 Type a simple idea and get a finished photo in a film or phone look.
 
 This repo has two things:
-- **The Moss Film Looks workflow (v9).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, hand fix, detail and grain.
+- **The Moss Film Looks workflow (v10).** It turns a short idea into a full picture with the **MOSS-Image** model, then adds film looks, face fix, hand fix, detail and grain.
 - **The Kreative Studio nodes.** They give the workflow its Control Panel, seed buttons, ON/OFF switches and **KEEP / BIN** buttons.
 
 ## Examples
@@ -76,7 +76,7 @@ You need **3 packs by Lo** and **7 other packs**.
 | Pack | What it does | Link |
 |---|---|---|
 | **ComfyUI-Kreative-Studio** (this repo) | Control Panel, Model Panel, seed, ON/OFF, detail mix, JPEG crunch, KEEP / BIN | `https://github.com/Lo-res/ComfyUI-Kreative-Studio` |
-| **ComfyUI-Kreative-Moss** (0.4.0 or newer) | Idea list (one image per ON row), size + lens (incl. XPan and Widelux), timers | `https://github.com/Lo-res/ComfyUI-Kreative-Moss` |
+| **ComfyUI-Kreative-Moss** (0.5.0 or newer) | Idea list (one image per ON row), size + lens (incl. XPan, Widelux and Helios 44-2), timers | `https://github.com/Lo-res/ComfyUI-Kreative-Moss` |
 | **comfyui_aerochrome** | Look E (🧪 experimental, don't use yet) | `https://github.com/Lo-res/comfyui_aerochrome` |
 
 Install **all three**. The workflow needs them all, even if you never use Look E.
@@ -158,7 +158,7 @@ These are the exact files the workflow loads. If you saved a file under a differ
 ---
 
 ## 4. Open the workflow
-1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v9.json`**.
+1. Find the workflow file in this repo's `workflows/` folder: **`moss-image-sft_v10.json`**.
 2. Drag it onto the ComfyUI window.
 3. **Red nodes?** A pack is missing. Click **Manager** → **Install Missing Custom Nodes**, then restart.
 4. In the **MODEL PANEL**, check that each box shows your model file.
@@ -232,6 +232,11 @@ Two panoramic lenses are always wide:
 - **Widelux 26mm**: 140° swing lens, gently curved horizon (3:1).
 
 Use size **2304** or **2560** with these, so the picture isn't too short.
+
+**Helios 44-2 58mm** (last in the list): a vintage Soviet portrait lens, always shot wide open at f/2. Sharp subject with a soft pearly glow, soft background with round bokeh, slightly darker corners, warm golden-amber tone.
+- Its description goes at the **start** of the prompt, so Moss follows it.
+- With the **AI prompt writer ON** (1n), small points of light are added behind the subject (sun through leaves, lamps) for the bokeh.
+- Best for close portraits with light behind the subject.
 
 **Fixed lens:** the **J · Polaroid** look has its own built-in lens, just like the real camera.
 With Polaroid, the lens choice in 1c doesn't apply. Your lens comes back when you pick another look.
